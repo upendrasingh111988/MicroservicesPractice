@@ -19,12 +19,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User saveUser(User user) {
 		String radomuid = UUID.randomUUID().toString();
-		//User userobj= new User();
 		user.setUserId(radomuid);
-		/*
-		 * userobj.setName(user.getName()); userobj.setEmail(user.getEmail());
-		 * userobj.setAbout(user.getAbout());
-		 */
 		User saveduser = userRepo.save(user);
 		return saveduser;
 	}
