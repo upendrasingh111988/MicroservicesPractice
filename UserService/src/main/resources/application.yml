@@ -1,0 +1,46 @@
+#server:
+#  port: 5000
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/userService
+    username: root
+    password: Upen@1988
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+   
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+  application:
+    name: UserService
+    
+#  servlet:
+#    multipart:
+#      max-file-size:
+#        100MB
+#      max-request-size:
+#        100MB
+#  profiles:
+#    active:
+#    - dev
+#
+#springdoc:
+#  api-docs:
+#    path: /v3/api-docs
+#  swagger-ui:
+#    path: /swagger-ui.html
+#    
+#        
+#project.image:
+#  images/
+  
+  
+logging:
+  level:
+     org.springframework.web: DEBUG
+     guru.springframework.controllers: DEBUG
+     org.hibernate: DEBUG
+     org: INFO
+     
