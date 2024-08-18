@@ -11,5 +11,7 @@ public interface UserService {
 	List<User> getAllUsers();
 	
 	User getSingleUser(String userId);
+	
+	User updateUser(User user , String userId);
 
 }
