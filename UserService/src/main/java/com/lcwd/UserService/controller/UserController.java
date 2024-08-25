@@ -18,6 +18,8 @@ import com.lcwd.UserService.entity.User;
 import com.lcwd.UserService.services.UserService;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
+import io.github.resilience4j.retry.annotation.Retry;
 
 @RestController
 @RequestMapping("/api/user")
@@ -39,7 +41,9 @@ public class UserController {
 		return new ResponseEntity<List<User>>(allUsers,HttpStatus.OK);
 	}
 	@GetMapping("/{userId}")
-	@CircuitBreaker(name="ratingHotelBreaker", fallbackMethod = "ratingHotelFallBack")
+	//@CircuitBreaker(name="ratingHotelBreaker", fallbackMethod = "ratingHotelFallBack")
+	//@Retry(name="ratingHotelService", fallbackMethod = "ratingHotelFallBack")
+	@RateLimiter(name="userRateLimiter", fallbackMethod = "ratingHotelFallBack")
 	public ResponseEntity<User> getsingleUser(@PathVariable String userId){
 		
 		User singleUser = userService.getSingleUser(userId);
@@ -49,7 +53,7 @@ public class UserController {
 	// creating Fallback method..
 	public ResponseEntity<User> ratingHotelFallBack(String userId, Exception ex){
 		
-		System.out.println("fallback method is calling because service is down.."+ ex.getMessage());
+		
 		User user = User.builder().name("Upendra").email("upen@gmail.com")
 				.about("creadeted due to some services is down.. please try after some time")
 				.userId("123").build();
